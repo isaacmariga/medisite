@@ -49,6 +49,7 @@ class Medicine(models.Model):
 		name = models.CharField(max_length =30)
 		disease = models.CharField(max_length =30)
 		price  = models.IntegerField()
+		units  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
 		picture = models.ImageField(upload_to = 'articles/')
 

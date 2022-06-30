@@ -19,7 +19,7 @@ import dj_database_url
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 # development
 if config('MODE')=="dev":
    DATABASES = {
@@ -35,16 +35,20 @@ if config('MODE')=="dev":
    }
 # production
 else:
-   DATABASES = {
-       'default': dj_database_url.config(
-           default=config('DATABASE_URL')
-       )
-   }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'medistore',
+            'USER': 'mariga',
+            'PASSWORD':'password',
+    }
+}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,6 +67,8 @@ INSTALLED_APPS = [
     'medicine.apps.MedicineConfig',
     'django_bootstrap5',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 
 
 ]
@@ -76,6 +82,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 
 ]
 
@@ -104,14 +112,7 @@ WSGI_APPLICATION = 'medistore.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'medistore',
-#         'USER': 'mariga',
-#         'PASSWORD':'password',
-#     }
-# }
+
 
 
 
