@@ -16,5 +16,6 @@ urlpatterns = [
   path('api/donation/', api_view.DonatingList.as_view()),
   path('api/purchase/', api_view.PurchasingList.as_view()),
   path('api/prescription/', api_view.PrescriptionList.as_view()),
+  path('api/disease/', api_view.DiseaseList.as_view()),
 
 ]

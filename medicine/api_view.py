@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Supplier, Medicine, Donating, Purchasing, Prescription
-from .serializer import ProfileSerializer, SupplierSerializer, MedicineSerializer, DonatingSerializer, PurchasingSerializer, PrescriptionSerializer
+from .models import Profile, Supplier, Medicine, Donating, Purchasing, Prescription, Disease
+from .serializer import ProfileSerializer, SupplierSerializer, MedicineSerializer, DonatingSerializer, PurchasingSerializer, PrescriptionSerializer, DiseaseSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -72,6 +72,18 @@ class PrescriptionList(APIView):
 				return Response(serializers.data)
 		def post(self, request, format=None):
 				serializers = PrescriptionSerializer(data=request.data)
+				if serializers.is_valid():
+						serializers.save()
+						return Response(serializers.data, status=status.HTTP_201_CREATED)
+				return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+				
+class DiseaseList(APIView):
+		def get(self, request, format=None):
+				disease = Disease.get_all_diseases()
+				serializers = DiseaseSerializer(disease, many=True)
+				return Response(serializers.data)
+		def post(self, request, format=None):
+				serializers = DiseaseSerializer(data=request.data)
 				if serializers.is_valid():
 						serializers.save()
 						return Response(serializers.data, status=status.HTTP_201_CREATED)

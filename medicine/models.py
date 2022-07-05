@@ -59,6 +59,10 @@ class Disease(models.Model):
 		def __str__(self):
 				return self.name 
 
+		@classmethod
+		def get_all_diseases(cls):
+			table = Disease.objects.all()
+			return table
 
 class Medicine(models.Model):
 		name = models.CharField(max_length =30)

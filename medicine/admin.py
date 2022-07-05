@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Supplier, Medicine, Donating, Purchasing, Prescription
+from .models import Disease, Profile, Supplier, Medicine, Donating, Purchasing, Prescription
 # Register your models here.
 
 
@@ -9,3 +9,4 @@ admin.site.register(Supplier)
 admin.site.register(Donating)
 admin.site.register(Purchasing)
 admin.site.register(Prescription)
+admin.site.register(Disease)
