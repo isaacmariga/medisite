@@ -23,6 +23,11 @@ class Profile(models.Model):
 			table = Profile.objects.all()
 			return table
 
+		@classmethod
+		def get_by_id(cls, id):
+			result = cls.objects.get(id=id)
+			return result	
+
 
 class Supplier(models.Model):
 		name = models.CharField(max_length =30)
@@ -48,7 +53,7 @@ class Supplier(models.Model):
 class Medicine(models.Model):
 		name = models.CharField(max_length =30)
 		disease = models.CharField(max_length =30)
-		price  = models.IntegerField()
+		price  = models.IntegerField(null=True, blank=True)
 		units  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
 		picture = models.ImageField(upload_to = 'articles/')
@@ -60,12 +65,22 @@ class Medicine(models.Model):
 		def get_all_medicines(cls):
 			table = Medicine.objects.all()
 			return table
+		
+		@classmethod
+		def filter_by_disease(cls, disease):
+			result = cls.objects.filter(disease=disease)
+			return result	
+
+		@classmethod
+		def get_by_id(cls, id):
+			result = cls.objects.get(id=id)
+			return result	
 
 
 # Actions models
 
 class  Donating(models.Model):
-		amount  = models.IntegerField()
+		amount  = models.IntegerField(null=True, blank=True)
 		donor = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
 
@@ -77,9 +92,14 @@ class  Donating(models.Model):
 			table = Donating.objects.all()
 			return table
 
+		@classmethod
+		def filter_by_donor(cls, donor):
+			result = cls.objects.filter(donor=donor)
+			return result	
+
 	
 class  Purchasing(models.Model):
-		units  = models.IntegerField()
+		units  = models.IntegerField(null=True, blank=True)
 		buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
 
