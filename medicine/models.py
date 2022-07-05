@@ -1,6 +1,7 @@
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
@@ -49,14 +50,23 @@ class Supplier(models.Model):
 
 
 
+
 # Products
+
+class Disease(models.Model):
+		name = models.CharField(max_length =30)
+
+		def __str__(self):
+				return self.name 
+
+
 class Medicine(models.Model):
 		name = models.CharField(max_length =30)
-		disease = models.CharField(max_length =30)
+		disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
 		price  = models.IntegerField(null=True, blank=True)
 		units  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
-		picture = models.ImageField(upload_to = 'articles/')
+		picture = CloudinaryField('image',null=True, blank=True)
 
 		def __str__(self):
 				return self.name
@@ -75,7 +85,6 @@ class Medicine(models.Model):
 		def get_by_id(cls, id):
 			result = cls.objects.get(id=id)
 			return result	
-
 
 # Actions models
 
@@ -112,7 +121,7 @@ class  Purchasing(models.Model):
 			return table
 
 class  Prescription(models.Model):
-		picture = models.ImageField(upload_to = 'prescription/')
+		picture =  CloudinaryField('image',null=True, blank=True)
 		buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
 
