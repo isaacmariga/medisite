@@ -33,6 +33,8 @@ class MedicineList(APIView):
 		def get(self, request, format=None):
 				medicines = Medicine.get_all_medicines()
 				serializers = MedicineSerializer(medicines, many=True)
+				print(serializers.data)
+
 				return Response(serializers.data)
 		def post(self, request, format=None):
 				serializers = MedicineSerializer(data=request.data)
@@ -82,6 +84,7 @@ class DiseaseList(APIView):
 				disease = Disease.get_all_diseases()
 				serializers = DiseaseSerializer(disease, many=True)
 				return Response(serializers.data)
+
 		def post(self, request, format=None):
 				serializers = DiseaseSerializer(data=request.data)
 				if serializers.is_valid():
@@ -89,3 +92,11 @@ class DiseaseList(APIView):
 						return Response(serializers.data, status=status.HTTP_201_CREATED)
 				return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 				
+
+class MedicineByDisease(APIView):
+		def get(self, request, disease, format=None):
+			medicine_disease = Medicine.filter_by_disease(disease)
+			serializers = MedicineSerializer(medicine_disease, many=True)
+			print(serializers.data)
+
+			return Response(serializers.data)

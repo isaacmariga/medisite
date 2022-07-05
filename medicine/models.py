@@ -65,8 +65,8 @@ class Disease(models.Model):
 			return table
 
 class Medicine(models.Model):
-		name = models.CharField(max_length =30)
 		disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
+		name = models.CharField(max_length =30)
 		price  = models.IntegerField(null=True, blank=True)
 		units  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
@@ -81,8 +81,8 @@ class Medicine(models.Model):
 			return table
 		
 		@classmethod
-		def filter_by_disease(cls, disease):
-			result = cls.objects.filter(disease=disease)
+		def filter_by_disease(Medicine, disease):
+			result = Medicine.objects.filter(disease__name=disease)
 			return result	
 
 		@classmethod
