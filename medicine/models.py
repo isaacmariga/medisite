@@ -54,7 +54,7 @@ class Supplier(models.Model):
 # Products
 
 class Disease(models.Model):
-		name = models.CharField(max_length =30)
+		name = models.CharField(max_length =30,null=True, blank=True)
 
 		def __str__(self):
 				return self.name 
