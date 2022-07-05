@@ -100,3 +100,12 @@ class MedicineByDisease(APIView):
 			print(serializers.data)
 
 			return Response(serializers.data)
+
+class MedicineById(APIView):
+		def get(self, request, id, format=None):
+			medicine_id = Medicine.get_by_id(id)
+			serializers = MedicineSerializer(medicine_id)
+
+			# print()
+
+			return Response(serializers.data)

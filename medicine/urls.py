@@ -14,6 +14,7 @@ urlpatterns = [
   path('api/supplier/', api_view.SupplierList.as_view()),
   path('api/medicines/', api_view.MedicineList.as_view()),
   path('api/medicine/<disease>', api_view.MedicineByDisease.as_view()),
+  path('api/medicine-id/<id>', api_view.MedicineById.as_view()),
   path('api/donation/', api_view.DonatingList.as_view()),
   path('api/purchase/', api_view.PurchasingList.as_view()),
   path('api/prescription/', api_view.PrescriptionList.as_view()),
