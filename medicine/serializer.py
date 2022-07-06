@@ -21,7 +21,7 @@ class MedicineSerializer(serializers.ModelSerializer):
 class DonatingSerializer(serializers.ModelSerializer):
     class Meta:
       model = Donating
-      fields = ('amount', 'donor', 'medicine')
+      fields = ('amount', 'phone_number','email' 'donor','disease')
 
 class PurchasingSerializer(serializers.ModelSerializer):
     class Meta:
