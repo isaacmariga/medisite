@@ -94,8 +94,10 @@ class Medicine(models.Model):
 
 class  Donating(models.Model):
 		amount  = models.IntegerField(null=True, blank=True)
+		phone_number  = models.IntegerField(null=True, blank=True)
+		email  = models.TextField(null=True, blank=True)
 		donor = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+		disease = models.ForeignKey(Disease, on_delete=models.CASCADE ,null=True, blank=True)
 
 		def __str__(self):
 			return str(self.id)
