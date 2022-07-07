@@ -58,6 +58,9 @@ class Disease(models.Model):
 
 		def __str__(self):
 				return self.name 
+		class Meta:
+				verbose_name_plural  =  "Diseases"     
+
 
 		@classmethod
 		def get_all_diseases(cls):
@@ -74,6 +77,9 @@ class Medicine(models.Model):
 
 		def __str__(self):
 				return self.name
+
+		class Meta:
+				verbose_name_plural  =  "Medicines"   
 
 		@classmethod
 		def get_all_medicines(cls):
@@ -102,6 +108,10 @@ class  Donating(models.Model):
 		def __str__(self):
 			return str(self.id)
 
+		class Meta:
+				verbose_name_plural  =  "Donations"   
+
+
 		@classmethod
 		def get_all_donations(cls):
 			table = Donating.objects.all()
@@ -121,6 +131,9 @@ class  Purchasing(models.Model):
 		def __str__(self):
 			return str(self.id)
 
+		class Meta:
+				verbose_name_plural  =  "Purchases"   
+
 		@classmethod
 		def get_all_purchases(cls):
 			table = Purchasing.objects.all()
@@ -133,7 +146,9 @@ class  Prescription(models.Model):
 
 		def __str__(self):
 			return str(self.id)
-
+		class Meta:
+				verbose_name_plural  =  "Prescriptions"   
+				
 		@classmethod
 		def get_all_prescriptions(cls):
 			table = Prescription.objects.all()

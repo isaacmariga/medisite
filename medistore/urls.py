@@ -10,3 +10,7 @@ urlpatterns = [
   
 ]
 
+
+admin.site.site_header  =  "Medistore bookstore admin"  
+admin.site.site_title  =  "Medistore bookstore admin site"
+admin.site.index_title  =  "Medistore Bookstore Admin"

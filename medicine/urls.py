@@ -21,3 +21,4 @@ urlpatterns = [
   path('api/disease/', api_view.DiseaseList.as_view()),
 
 ]
+
