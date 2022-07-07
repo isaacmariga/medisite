@@ -67,16 +67,17 @@ class Disease(models.Model):
 			table = Disease.objects.all()
 			return table
 
+
+
 class Medicine(models.Model):
 		disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
 		name = models.CharField(max_length =30)
 		price  = models.IntegerField(null=True, blank=True)
-		units  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
 		picture = CloudinaryField('image',null=True, blank=True)
 
 		def __str__(self):
-				return self.name
+				return f"{self.name}-{str(self.id)}"
 
 		class Meta:
 				verbose_name_plural  =  "Medicines"   
@@ -97,6 +98,20 @@ class Medicine(models.Model):
 			return result	
 
 # Actions models
+class MediUnits(models.Model):
+		units  = models.IntegerField(null=True, blank=True)
+		medicine  = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True, blank=True)
+
+		class Meta:
+				verbose_name_plural  =  "Medicine Units"  
+		def __str__(self):
+					return str(self.id) 
+
+		@classmethod
+		def filter_by_medicine(MediUnits, id):
+			result = MediUnits.objects.filter(medicine__id=id)
+			return result	
+
 
 class  Donating(models.Model):
 		amount  = models.IntegerField(null=True, blank=True)
