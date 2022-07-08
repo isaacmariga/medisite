@@ -150,6 +150,9 @@ TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
+USE_L10N = True
+
+
 USE_TZ = True
 
 
@@ -182,3 +185,4 @@ cloudinary.config(
   api_key = "955543347862628", 
   api_secret = "fDcoDRd_45Ta9KTrg-KBQsqU9uM" 
 )
+AUTH_USER_MODEL = "medicine.User" 

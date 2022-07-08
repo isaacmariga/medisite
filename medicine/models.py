@@ -1,6 +1,6 @@
 from email.policy import default
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 
 
@@ -9,20 +9,17 @@ from cloudinary.models import CloudinaryField
 
 # People models
 
-class Profile(models.Model):
-		user = models.ForeignKey(User, on_delete=models.CASCADE)
+class User(AbstractUser):
+		username = models.CharField(max_length=255)
 		password = models.CharField(max_length =300)
-		email = models.EmailField()
-		phone_number  = models.IntegerField()
-		category = models.CharField(max_length =30, default="user")
+		email = models.EmailField(max_length=255, unique=True)
+
+		USERNAME_FIELD = 'email'
+		REQUIRED_FIELDS = [ 'username']
 
 		def __str__(self):
 			return str(self.id)
 
-		@classmethod
-		def get_all_profiles(cls):
-			table = Profile.objects.all()
-			return table
 
 		@classmethod
 		def get_by_id(cls, id):
