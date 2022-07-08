@@ -186,3 +186,5 @@ cloudinary.config(
   api_secret = "fDcoDRd_45Ta9KTrg-KBQsqU9uM" 
 )
 AUTH_USER_MODEL = "medicine.User" 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

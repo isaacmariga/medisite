@@ -22,9 +22,9 @@ urlpatterns = [
   path('api/disease/', api_view.DiseaseList.as_view()),
 
 
-  path('register', reg_api_view.RegisterView.as_view()),
-  path('login', reg_api_view.LoginView.as_view()),
-  path('user', reg_api_view.UserView.as_view()),
-  path('logout', reg_api_view.LogoutView.as_view()),
+  path('api/register', reg_api_view.RegisterView.as_view()),
+  path('api/login', reg_api_view.LoginView.as_view()),
+  path('api/user', reg_api_view.UserView.as_view()),
+  path('api/logout', reg_api_view.LogoutView.as_view()),
 ]
 

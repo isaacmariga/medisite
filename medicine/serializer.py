@@ -5,7 +5,7 @@ from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password']
+        fields = ['id', 'username', 'email', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
