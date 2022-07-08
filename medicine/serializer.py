@@ -16,7 +16,7 @@ class SupplierSerializer(serializers.ModelSerializer):
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
       model = Medicine
-      fields = ('id','name', 'disease', 'price', 'units','description', 'picture')
+      fields = ('id','name', 'disease', 'price', 'description', 'picture')
 
 class DonatingSerializer(serializers.ModelSerializer):
     class Meta:
