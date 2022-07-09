@@ -1,8 +1,8 @@
 from django import forms
-from .models import Donating
+from .models import Prescription
 
 
-class DonatingForm(forms.ModelForm):
+class PrescriptionForm(forms.ModelForm):
 		class Meta:
-			model = Donating
-			exclude = ['donor'] 
+			model = Prescription
+			exclude = ['medicine'] 

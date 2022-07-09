@@ -7,7 +7,7 @@ urlpatterns = [
   path('', views.welcome,name = 'test'),
   path('home/<disease>', views.home,name = 'home'),
   path('details/<id>', views.details,name = 'details'),
-  # path('profile/<id>', views.profile,name = 'profile'),
+  path('prescription/<id>', views.prescription,name = 'prescription'),
   path('donor/<donor>', views.donor,name = 'donor'),
 
   # path('api/profile/', api_view.ProfileList.as_view(), name = 'profile'),

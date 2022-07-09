@@ -170,3 +170,8 @@ class  Prescription(models.Model):
 		def get_all_prescriptions(cls):
 			table = Prescription.objects.all()
 			return table
+
+		@classmethod
+		def filter_by_medicine(cls, id):
+			result = cls.objects.filter(medicine__id=id)
+			return result	

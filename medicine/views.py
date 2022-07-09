@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
+
+import medicine
 from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription
+from .forms import PrescriptionForm
 
 
 # Create your views here.
@@ -7,8 +10,9 @@ from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription
 
 
 def welcome(request):
+	# medicine = Medicine.get_by_id(id)
 
-		return render(request, 'test.html')
+	return render(request, 'test.html')
 
 
 def home(request, disease):
@@ -31,3 +35,17 @@ def donor(request, donor):
 	
 	return render(request, 'userdonations.html',{'donations':donations})
 
+# @login_required(login_url='/accounts/login/')
+def prescription(request, id):
+	medicine = Medicine.get_by_id(id)
+	if request.method == 'POST':
+		form = PrescriptionForm(request.POST, request.FILES)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.medicine = medicine
+			name.save()
+		return redirect( prescription,  medicine.id)
+	else:
+		form = PrescriptionForm()
+			
+	return render(request ,'form_pages/prescription.html', {'form': form , 'medicine': medicine})

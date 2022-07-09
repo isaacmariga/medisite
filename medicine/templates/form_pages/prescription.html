@@ -1,0 +1,14 @@
+{% extends 'form_pages/base.html' %} {%load static%}{% load django_bootstrap5%}
+
+{% block content %}
+{{block.super}}
+
+
+<form action="{%url 'prescription' medicine.id%}" method="post" enctype="multipart/form-data">
+  {%csrf_token%}
+
+  {% bootstrap_form form%}
+  <input type="submit" class="btn btn-success btn-lg" value="Post">
+</form>
+
+{% endblock %}
