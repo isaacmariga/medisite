@@ -51,7 +51,7 @@ DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 CORS_ORIGIN_ALLOW_ALL = True
-
+# CORS_ALLOW_CREDENTIALS = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -186,5 +186,5 @@ cloudinary.config(
   api_secret = "fDcoDRd_45Ta9KTrg-KBQsqU9uM" 
 )
 AUTH_USER_MODEL = "medicine.User" 
-CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOW_CREDENTIALS = True
