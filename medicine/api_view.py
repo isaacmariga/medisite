@@ -92,8 +92,8 @@ class DiseaseList(APIView):
 						return Response(serializers.data, status=status.HTTP_201_CREATED)
 				return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 class MediUnitsList(APIView):
-		def get(self,request,  id, format=None):
-				mediunit = MediUnits.filter_by_medicine(id)
+		def get(self,request,  format=None):
+				mediunit = MediUnits.get_all_units()
 				serializers = MediUnitsSerializer(mediunit, many=True)
 				return Response(serializers.data)
 
@@ -104,6 +104,12 @@ class MediUnitsList(APIView):
 						return Response(serializers.data, status=status.HTTP_201_CREATED)
 				return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 				
+
+class UnitsByMedicine(APIView):
+		def get(self,request,  id, format=None):
+				mediunit = MediUnits.filter_by_medicine(id)
+				serializers = MediUnitsSerializer(mediunit, many=True)
+				return Response(serializers.data)
 
 class MedicineByDisease(APIView):
 		def get(self, request, disease, format=None):

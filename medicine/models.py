@@ -105,6 +105,11 @@ class MediUnits(models.Model):
 					return str(self.id) 
 
 		@classmethod
+		def get_all_units(cls):
+			table = MediUnits.objects.all()
+			return table
+			
+		@classmethod
 		def filter_by_medicine(MediUnits, id):
 			result = MediUnits.objects.filter(medicine__id=id)
 			return result	
