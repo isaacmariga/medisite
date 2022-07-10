@@ -1,5 +1,6 @@
 from datetime import datetime
 from email.policy import default
+from re import A
 from zoneinfo import available_timezones
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -319,7 +320,8 @@ class CalculationUnits(models.Model):
 					units_sold = int("".join(map(str,units_sold)))
 
 
-			set_price = CalculationUnits.objects.all().last().set_price
+			set_price = CalculationUnits.objects.filter(medicine_id=id).order_by('-id')
+			set_price = set_price[0].set_price
 
 
 			donations = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).aggregate(Sum('donation_amount')).values())
@@ -373,7 +375,11 @@ class CalculationUnits(models.Model):
 
 			total_spent_discount = (sec_discount_per_unit*sec_units_sold)
 
-			available_units =(units-units_sold)
+
+			if ((units-units_sold) < 1):
+					available_units = 0
+			else :
+					available_units =(units-units_sold)
 
 
 			total_original_price = set_price*available_units
@@ -382,10 +388,24 @@ class CalculationUnits(models.Model):
 
 			after_discount_price = total_original_price-total_donations
 
-			price_per_unit = after_discount_price/available_units
+			if (total_original_price-total_donations < 1):
+					price_per_unit = set_price
+			else:
+				price_per_unit = after_discount_price/available_units
 
 
-
+			print(f"sec-donations - {sec_donations}")
+			print(f"sec_available_units -{sec_available_units}")
+			print(f"sec_total_original_cost - {sec_total_original_cost}")
+			print(f"sec_after_discount_price - {sec_after_discount_price}")
+			print(f"sec_price_per_unit - {sec_price_per_unit}")
+			print(f"total_spent_discount --{total_spent_discount}")
+			print(f"available_units-- {available_units}")
+			print(f"total_original_price -- {total_original_price}")
+			print(f"total_donations --{total_donations}")
+			print(f"after_discount_price --{after_discount_price}")
+			print(f"price_per_unit --{price_per_unit}")
+			print(f"set_price --{set_price}")
 			return(price_per_unit)
 
 

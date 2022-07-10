@@ -28,9 +28,9 @@ def details(request, id):
 	# calc3 = CalculationUnits.set_price_latest(id)
 	# calc4 = CalculationUnits.set_donations_sum(id)
 	# calc5 = CalculationUnits.calculations(id)
-
+	calc5 = CalculationUnits.calculations(id)
 	
-	return render(request, 'details.html')
+	return render(request, 'details.html', {'calc5':calc5,})
 
 # def profile(request, id):
 # 	profile = Profile.get_by_i
