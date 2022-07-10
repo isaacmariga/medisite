@@ -12,9 +12,10 @@ from .forms import PrescriptionForm
 
 def welcome(request):
 	# medicine = Medicine.get_by_id(id)
+	calc = CalculationUnits.get_test()
 
 
-	return render(request, 'test.html')
+	return render(request, 'test.html', {'calc':calc})
 
 
 def home(request, disease):

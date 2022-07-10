@@ -4,6 +4,7 @@ from zoneinfo import available_timezones
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
+from django.db.models import Count
 
 
 # Create your models here.
@@ -194,6 +195,7 @@ class  Prescription(models.Model):
 
 class CalculationUnits(models.Model):
 	medicine_id  = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True, blank=True)
+	disease_id  = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
 	units = models.IntegerField( null=True, blank=True)
 	units_sold = models.IntegerField(null=True, blank=True)
 	set_price = models.IntegerField(null=True, blank=True)
@@ -217,6 +219,21 @@ class CalculationUnits(models.Model):
 			result = CalculationUnits.objects.all().order_by('-id')
 			result = result[1]
 			return result
+
+	# @classmethod
+	# def get_test(cls):
+	# 	result = CalculationUnits.objects.all().last()
+	# 	disease_name = result.medicine_id.disease.name
+	# 	number = Disease.objects.filter(name=disease_name)
+	# 	result = number__medicine
+	# 	return result
+
+
+	@classmethod
+	def get_test(cls):
+		result  = CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id'))
+
+		return result
 
 
 
