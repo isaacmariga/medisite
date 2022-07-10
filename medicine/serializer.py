@@ -47,7 +47,7 @@ class PrescriptionSerializer(serializers.ModelSerializer):
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
       model = Disease
-      fields = ('name',)
+      fields = ('id','name',)
 
 class MediUnitsSerializer(serializers.ModelSerializer):
     class Meta:
