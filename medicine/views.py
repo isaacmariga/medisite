@@ -13,9 +13,8 @@ from .forms import PrescriptionForm
 def welcome(request):
 	# medicine = Medicine.get_by_id(id)
 
-	disease = Disease.get_last()
 
-	return render(request, 'test.html',{'disease':disease})
+	return render(request, 'test.html')
 
 
 def home(request, disease):
