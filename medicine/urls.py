@@ -21,6 +21,9 @@ urlpatterns = [
   path('api/purchase/', api_view.PurchasingList.as_view()),
   path('api/prescription/', api_view.PrescriptionList.as_view()),
   path('api/disease/', api_view.DiseaseList.as_view()),
+  path('api/calculation_units/', api_view.CalculationUnitsList.as_view()),
+  path('api/calculation_units_latest/', api_view.CalculationUnitsLatest.as_view()),
+
 
 
   path('api/register', reg_api_view.RegisterView.as_view()),

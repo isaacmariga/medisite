@@ -175,3 +175,22 @@ class  Prescription(models.Model):
 		def filter_by_medicine(cls, id):
 			result = cls.objects.filter(medicine__id=id)
 			return result	
+
+class CalculationUnits(models.Model):
+	units = models.CharField(max_length=100, null=True, blank=True)
+	sales = models.CharField(max_length=100,null=True, blank=True)
+	price = models.CharField(max_length=100,null=True, blank=True)
+	donations = models.CharField(max_length=100,null=True, blank=True)
+
+	def __str__(self):
+			return str(self.id)
+	
+	@classmethod
+	def get_all(cls):
+		result = CalculationUnits.objects.all()
+		return result
+
+	@classmethod
+	def get_latest(cls):
+		result = CalculationUnits.objects.all().last()
+		return result

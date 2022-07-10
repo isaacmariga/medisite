@@ -18,6 +18,9 @@ import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import smtplib as smtp
+
+
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
@@ -188,3 +191,14 @@ cloudinary.config(
 AUTH_USER_MODEL = "medicine.User" 
 
 CORS_ALLOW_CREDENTIALS = True
+
+connection = smtp.SMTP_SSL('smtp.gmail.com', 465)
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'aizakmariga@gmail.com'
+EMAIL_HOST_PASSWORD = 'sbqzkiywmbnjjmhe'
+
+RECIPIENT_ADDRESS = 'inmariga@gmail.com'

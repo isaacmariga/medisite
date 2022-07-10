@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription, Disease, MediUnits
+from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription, Disease, MediUnits, CalculationUnits
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,7 +48,12 @@ class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
       model = Disease
       fields = ('name',)
+
 class MediUnitsSerializer(serializers.ModelSerializer):
     class Meta:
       model = MediUnits
       fields = ('medicine','units')
+class CalculationUnitsSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = CalculationUnits
+      fields = ('sales','units', 'price', 'donations')

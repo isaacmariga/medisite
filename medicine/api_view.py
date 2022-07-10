@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription, Disease, MediUnits
-from .serializer import  SupplierSerializer, MedicineSerializer, DonatingSerializer, PurchasingSerializer, PrescriptionSerializer, DiseaseSerializer, MediUnitsSerializer
+from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription, Disease, MediUnits, CalculationUnits
+from .serializer import  SupplierSerializer, MedicineSerializer, DonatingSerializer, PurchasingSerializer, PrescriptionSerializer, DiseaseSerializer, MediUnitsSerializer, CalculationUnitsSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -127,3 +127,26 @@ class MedicineById(APIView):
 			# print()
 
 			return Response(serializers.data)
+
+
+
+class CalculationUnitsList(APIView):
+		def get(self,request,  format=None):
+				calculation_units = CalculationUnits.get_all()
+				serializers = CalculationUnitsSerializer(calculation_units, many=True)
+				return Response(serializers.data)
+
+		def post(self, request, format=None):
+				serializers = CalculationUnitsSerializer(data=request.data)
+				if serializers.is_valid():
+						serializers.save()
+						return Response(serializers.data, status=status.HTTP_201_CREATED)
+				return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class CalculationUnitsLatest(APIView):
+		def get(self,request,  format=None):
+				calculation_units = CalculationUnits.get_latest()
+				serializers = CalculationUnitsSerializer(calculation_units, many=True)
+				return Response(serializers.data)

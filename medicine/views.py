@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 
 import medicine
 from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription
@@ -44,6 +45,13 @@ def prescription(request, id):
 			name = form.save(commit=False)
 			name.medicine = medicine
 			name.save()
+		send_mail(
+    	'Subject here',
+    	'Here is the message.',
+    	'aizakmariga@gmail.com',
+   		['inmariga@gmail.com'],
+   		fail_silently=False,)
+
 		return redirect( prescription,  medicine.id)
 	else:
 		form = PrescriptionForm()
