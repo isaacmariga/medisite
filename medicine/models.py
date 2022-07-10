@@ -178,9 +178,9 @@ class  Prescription(models.Model):
 
 class CalculationUnits(models.Model):
 	units = models.CharField(max_length=100, null=True, blank=True)
-	sales = models.CharField(max_length=100,null=True, blank=True)
-	price = models.CharField(max_length=100,null=True, blank=True)
-	donations = models.CharField(max_length=100,null=True, blank=True)
+	units_sold = models.CharField(max_length=100,null=True, blank=True)
+	set_price = models.CharField(max_length=100,null=True, blank=True)
+	donation_amount = models.CharField(max_length=100,null=True, blank=True)
 
 	def __str__(self):
 			return str(self.id)
