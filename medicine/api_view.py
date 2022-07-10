@@ -150,3 +150,9 @@ class CalculationUnitsLatest(APIView):
 				calculation_units = CalculationUnits.get_latest()
 				serializers = CalculationUnitsSerializer(calculation_units)
 				return Response(serializers.data)
+
+class DonatingByDisease(APIView):
+		def get(self,request,  id,format=None):
+				calculation_units = Donating.filter_by_disease(id)
+				serializers = DonatingSerializer(calculation_units, many=True)
+				return Response(serializers.data)

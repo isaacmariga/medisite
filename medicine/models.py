@@ -155,6 +155,11 @@ class  Donating(models.Model):
 		def filter_by_donor(cls, donor):
 			result = cls.objects.filter(donor=donor)
 			return result	
+		
+		@classmethod
+		def filter_by_disease(cls, id):
+			result = cls.objects.filter(disease_id__id=id)
+			return result
 
 	
 class  Purchasing(models.Model):
@@ -219,6 +224,8 @@ class CalculationUnits(models.Model):
 			result = CalculationUnits.objects.all().order_by('-id')
 			result = result[1]
 			return result
+
+
 
 	# @classmethod
 	# def get_test(cls):
