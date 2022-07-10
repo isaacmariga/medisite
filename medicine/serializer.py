@@ -56,4 +56,4 @@ class MediUnitsSerializer(serializers.ModelSerializer):
 class CalculationUnitsSerializer(serializers.ModelSerializer):
     class Meta:
       model = CalculationUnits
-      fields = ('sales','units', 'price', 'donations')
+      fields = ('units_sold','units', 'set_price', 'donation_amount')
