@@ -4,7 +4,7 @@ from zoneinfo import available_timezones
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
-from django.db.models import Count
+from django.db.models import Avg, Sum, Count, Max
 
 
 # Create your models here.
@@ -227,19 +227,12 @@ class CalculationUnits(models.Model):
 
 
 
-	# @classmethod
-	# def get_test(cls):
-	# 	result = CalculationUnits.objects.all().last()
-	# 	disease_name = result.medicine_id.disease.name
-	# 	number = Disease.objects.filter(name=disease_name)
-	# 	result = number__medicine
-	# 	return result
-
-
 	@classmethod
 	def get_test(cls):
-		result  = CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id'))
+		print("result")
+		result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
 
+		print(result)
 		return result
 
 
@@ -260,6 +253,140 @@ class CalculationUnits(models.Model):
 
 	# 		price_per_unit = total_original_price-
 			
+
+	# @classmethod
+	# def unit_sum(cls, id):
+	# 		units = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units')).values())
+	# 		test = all( i == None for i in units)
+	# 		if (test) == True:
+	# 				return 1
+	# 		else:
+	# 				units = int("".join(map(str,units)))
+	# 				return units
+
+
+	# @classmethod
+	# def units_sold_sum(cls, id):
+
+	# 		units = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units_sold')).values())
+	# 		test = all( i == None for i in units)
+	# 		if (test) == True:
+	# 				return 1
+	# 		else:
+	# 				units = int("".join(map(str,units)))
+
+	# 				return units
+
+	# @classmethod
+	# def set_price_latest(cls, id):
+	# 		result = CalculationUnits.objects.all().last()
+	# 		return result
+
+	# @classmethod
+	# def set_donations_sum(cls, id):
+	# 		units = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).aggregate(Sum('donation_amount')).values())
+	# 		test = all( i == None for i in units)
+	# 		if (test) == True:
+	# 				return 1
+	# 		else:
+	# 				units = int("".join(map(str,units)))
+	# 		result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
+
+	# 		donations = units/result
+
+
+			
+	# 		return donations
+
+
+	@classmethod
+	def calculations(cls, id):
+			units = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units')).values())
+			test = all( i == None for i in units)
+			if (test) == True:
+					return 1
+			else:
+					units = int("".join(map(str,units)))
+
+			# sec_units = CalculationUnits.objects.filter(medicine_id=id).order_by('-id')[:1].aggregate(Sum('units')).values())
+
+
+			units_sold = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units_sold')).values())
+			test = all( i == None for i in units_sold)
+			if (test) == True:
+					return 1
+			else:
+					units_sold = int("".join(map(str,units_sold)))
+
+
+			set_price = CalculationUnits.objects.all().last().set_price
+
+
+			donations = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).aggregate(Sum('donation_amount')).values())
+			test = all( i == None for i in donations)
+			if (test) == True:
+					return 1
+			else:
+					donations = int("".join(map(str,donations)))
+			result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
+
+			donations = donations/result
+
+# Second last calculations
+			Second_last = CalculationUnits.objects.filter(medicine_id=id).order_by('-id')
+			Sec_original_price = Second_last[1].set_price
+			# Sec_original_price = Sec_original_price[1].set_price
+
+			sec_units = list(CalculationUnits.objects.filter(medicine_id=id).order_by('-id')[1:].aggregate(Sum('units')).values())
+			test = all( i == None for i in sec_units)
+			if (test) == True:
+					return 1
+			else:
+					sec_units = int("".join(map(str,sec_units)))
+
+			sec_units_sold = list(CalculationUnits.objects.filter(medicine_id=id).order_by('-id')[1:].aggregate(Sum('units_sold')).values())
+			test = all( i == None for i in sec_units_sold)
+			if (test) == True:
+					return 1
+			else:
+					sec_units_sold = int("".join(map(str,sec_units_sold)))
+
+			sec_donations = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).order_by('-id')[1:].aggregate(Sum('donation_amount')).values())
+			test = all( i == None for i in sec_donations)
+			if (test) == True:
+					return 1
+			else:
+					sec_donations = int("".join(map(str,sec_donations)))
+			result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
+
+			sec_donations = sec_donations/result
+
+			sec_available_units = (sec_units-sec_units_sold)
+
+			sec_total_original_cost = (Sec_original_price*sec_available_units)
+
+			sec_after_discount_price = (sec_total_original_cost-sec_donations)
+
+			sec_price_per_unit = (sec_after_discount_price/sec_available_units)
+
+			sec_discount_per_unit = (Sec_original_price - sec_price_per_unit)
+
+			total_spent_discount = (sec_discount_per_unit*sec_units_sold)
+
+			available_units =(units-units_sold)
+
+
+			total_original_price = set_price*available_units
+
+			total_donations = (donations-total_spent_discount)
+
+			after_discount_price = total_original_price-total_donations
+
+			price_per_unit = after_discount_price/available_units
+
+
+
+			return(price_per_unit)
 
 
 

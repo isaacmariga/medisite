@@ -12,10 +12,9 @@ from .forms import PrescriptionForm
 
 def welcome(request):
 	# medicine = Medicine.get_by_id(id)
-	calc = CalculationUnits.get_test()
+	# calc = CalculationUnits.get_test()
 
-
-	return render(request, 'test.html', {'calc':calc})
+	return render(request, 'test.html')
 
 
 def home(request, disease):
@@ -24,9 +23,14 @@ def home(request, disease):
 	return render(request, 'home.html',{'medicines':medicines})
 
 def details(request, id):
-	medicine = Medicine.get_by_id(id) 
+	# calc = CalculationUnits.unit_sum(id)
+	# calc2 = CalculationUnits.units_sold_sum(id)
+	# calc3 = CalculationUnits.set_price_latest(id)
+	# calc4 = CalculationUnits.set_donations_sum(id)
+	# calc5 = CalculationUnits.calculations(id)
+
 	
-	return render(request, 'details.html',{'medicine':medicine})
+	return render(request, 'details.html')
 
 # def profile(request, id):
 # 	profile = Profile.get_by_i
@@ -48,11 +52,11 @@ def prescription(request, id):
 			name.medicine = medicine
 			name.save()
 		send_mail(
-    	'Subject here',
-    	'Here is the message.',
-    	'aizakmariga@gmail.com',
-   		['inmariga@gmail.com'],
-   		fail_silently=False,)
+			'Subject here',
+			'Here is the message.',
+			'aizakmariga@gmail.com',
+	 		['inmariga@gmail.com'],
+	 		fail_silently=False,)
 
 		return redirect( prescription,  medicine.id)
 	else:

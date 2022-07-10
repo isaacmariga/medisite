@@ -156,3 +156,9 @@ class DonatingByDisease(APIView):
 				calculation_units = Donating.filter_by_disease(id)
 				serializers = DonatingSerializer(calculation_units, many=True)
 				return Response(serializers.data)
+
+
+class DiscountedPrice(APIView):
+		def get(self, request, id):
+			discount_price = CalculationUnits.calculations(id)
+			return Response({"discounted_price":discount_price})
