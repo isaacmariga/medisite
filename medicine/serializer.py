@@ -27,17 +27,17 @@ class SupplierSerializer(serializers.ModelSerializer):
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
       model = Medicine
-      fields = ('id','name', 'disease', 'price', 'description', 'picture')
+      fields = ('id','name', 'disease', 'set_price', 'description', 'picture')
 
 class DonatingSerializer(serializers.ModelSerializer):
     class Meta:
       model = Donating
-      fields = ('amount', 'phone_number','email', 'donor','disease')
+      fields = ('donation_amount', 'phone_number','email', 'donor','disease')
 
 class PurchasingSerializer(serializers.ModelSerializer):
     class Meta:
       model = Purchasing
-      fields = ('units', 'buyer', 'medicine')
+      fields = ('units_sold', 'buyer', 'medicine')
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     class Meta:

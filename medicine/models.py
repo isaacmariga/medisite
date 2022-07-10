@@ -69,7 +69,7 @@ class Disease(models.Model):
 class Medicine(models.Model):
 		disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
 		name = models.CharField(max_length =30)
-		price  = models.IntegerField(null=True, blank=True)
+		set_price  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
 		picture = CloudinaryField('image',null=True, blank=True)
 
@@ -116,7 +116,7 @@ class MediUnits(models.Model):
 
 
 class  Donating(models.Model):
-		amount  = models.IntegerField(null=True, blank=True)
+		donation_amount  = models.IntegerField(null=True, blank=True)
 		phone_number  = models.IntegerField(null=True, blank=True)
 		email  = models.TextField(null=True, blank=True)
 		donor = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
@@ -141,7 +141,7 @@ class  Donating(models.Model):
 
 	
 class  Purchasing(models.Model):
-		units  = models.IntegerField(null=True, blank=True)
+		units_sold  = models.IntegerField(null=True, blank=True)
 		buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
 
