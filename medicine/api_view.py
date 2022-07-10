@@ -162,3 +162,8 @@ class DiscountedPrice(APIView):
 		def get(self, request, id):
 			discount_price = CalculationUnits.calculations(id)
 			return Response({"discounted_price":discount_price})
+
+class UnitsRemaining(APIView):
+		def get(self, request, id):
+			units_calculated = CalculationUnits.units_calculated(id)
+			return Response({"units_calculated":units_calculated})

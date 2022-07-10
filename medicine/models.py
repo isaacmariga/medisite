@@ -299,6 +299,30 @@ class CalculationUnits(models.Model):
 			
 	# 		return donations
 
+	@classmethod
+	def units_calculated(cls, id):
+			units = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units')).values())
+			test = all( i == None for i in units)
+			if (test) == True:
+					return 1
+			else:
+					units = int("".join(map(str,units)))
+
+			units_sold = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units_sold')).values())
+			test = all( i == None for i in units_sold)
+			if (test) == True:
+					return 1
+			else:
+					units_sold = int("".join(map(str,units_sold)))
+
+			if (units-units_sold < 1):
+					units_available = 0
+			else:
+					units_available = (units-units_sold)
+
+			return (units_available)
+
+			
 
 	@classmethod
 	def calculations(cls, id):
@@ -384,7 +408,11 @@ class CalculationUnits(models.Model):
 
 			total_original_price = set_price*available_units
 
-			total_donations = (donations-total_spent_discount)
+
+			if ((donations-total_spent_discount) < 1):
+					total_donations = 0
+			else :
+					total_donations = (donations-total_spent_discount)
 
 			after_discount_price = total_original_price-total_donations
 
@@ -399,13 +427,13 @@ class CalculationUnits(models.Model):
 			print(f"sec_total_original_cost - {sec_total_original_cost}")
 			print(f"sec_after_discount_price - {sec_after_discount_price}")
 			print(f"sec_price_per_unit - {sec_price_per_unit}")
-			print(f"total_spent_discount --{total_spent_discount}")
-			print(f"available_units-- {available_units}")
-			print(f"total_original_price -- {total_original_price}")
-			print(f"total_donations --{total_donations}")
-			print(f"after_discount_price --{after_discount_price}")
-			print(f"price_per_unit --{price_per_unit}")
-			print(f"set_price --{set_price}")
+			print(f"total_spent_discount - {total_spent_discount}")
+			print(f"available_units- {available_units}")
+			print(f"total_original_price - {total_original_price}")
+			print(f"total_donations - {total_donations}")
+			print(f"after_discount_price - {after_discount_price}")
+			print(f"price_per_unit - {price_per_unit}")
+			print(f"set_price - {set_price}")
 			return(price_per_unit)
 
 

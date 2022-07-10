@@ -25,6 +25,7 @@ urlpatterns = [
   path('api/calculation_units/', api_view.CalculationUnitsList.as_view()),
   path('api/calculation_units_latest/', api_view.CalculationUnitsLatest.as_view()),
   path('api/discounted_price/<id>', api_view.DiscountedPrice.as_view()),
+  path('api/units_remaining/<id>', api_view.UnitsRemaining.as_view()),
 
 
 
