@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 
 import medicine
-from .models import User, Supplier, Medicine, Donating, Purchasing, Prescription
+from .models import Disease, User, Supplier, Medicine, Donating, Purchasing, Prescription, CalculationUnits
 from .forms import PrescriptionForm
 
 
@@ -13,7 +13,9 @@ from .forms import PrescriptionForm
 def welcome(request):
 	# medicine = Medicine.get_by_id(id)
 
-	return render(request, 'test.html')
+	disease = Disease.get_last()
+
+	return render(request, 'test.html',{'disease':disease})
 
 
 def home(request, disease):

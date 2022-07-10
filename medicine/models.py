@@ -1,4 +1,6 @@
+from datetime import datetime
 from email.policy import default
+from zoneinfo import available_timezones
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
@@ -54,7 +56,7 @@ class Disease(models.Model):
 		name = models.CharField(max_length =30,null=True, blank=True)
 
 		def __str__(self):
-				return self.name 
+				return f"{self.name}-{str(self.id)}"
 		class Meta:
 				verbose_name_plural  =  "Diseases"     
 
@@ -63,6 +65,20 @@ class Disease(models.Model):
 		def get_all_diseases(cls):
 			table = Disease.objects.all()
 			return table
+
+		# @classmethod
+		# def get_last(cls):
+		# 	result = Disease.objects.all().order_by('-id')
+		# 	result = result[1]
+		# 	result = result.id
+		# 	return result
+		# @classmethod
+		# def get_last(cls):
+		# 	result = Disease.objects.all().last()
+		# 	# result = result[1]
+		# 	result = result.id
+		# 	return result
+
 
 
 
@@ -177,10 +193,11 @@ class  Prescription(models.Model):
 			return result	
 
 class CalculationUnits(models.Model):
-	units = models.CharField(max_length=100, null=True, blank=True)
-	units_sold = models.CharField(max_length=100,null=True, blank=True)
-	set_price = models.CharField(max_length=100,null=True, blank=True)
-	donation_amount = models.CharField(max_length=100,null=True, blank=True)
+	medicine_id  = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True, blank=True)
+	units = models.IntegerField( null=True, blank=True)
+	units_sold = models.IntegerField(null=True, blank=True)
+	set_price = models.IntegerField(null=True, blank=True)
+	donation_amount = models.IntegerField(null=True, blank=True)
 
 	def __str__(self):
 			return str(self.id)
@@ -194,3 +211,37 @@ class CalculationUnits(models.Model):
 	def get_latest(cls):
 		result = CalculationUnits.objects.all().last()
 		return result
+
+	@classmethod
+	def get_second_last(cls):
+			result = CalculationUnits.objects.all().order_by('-id')
+			result = result[1]
+			return result
+
+
+
+
+
+	# @classmethod
+	# def discounted_price(cls):
+	# 		calculation_units = CalculationUnits.objects.all().last()
+	# 		units = calculation_units.units
+	# 		units_sold = calculation_units.units_sold
+	# 		set_price = calculation_units.set_price
+	# 		donation_amount = calculation_units.donation_amount
+
+	# 		available_units =(units-units_sold)
+
+	# 		total_original_price = set_price*available_units
+
+	# 		price_per_unit = total_original_price-
+			
+
+
+
+			
+
+
+
+
+			
