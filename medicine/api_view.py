@@ -148,5 +148,5 @@ class CalculationUnitsList(APIView):
 class CalculationUnitsLatest(APIView):
 		def get(self,request,  format=None):
 				calculation_units = CalculationUnits.get_latest()
-				serializers = CalculationUnitsSerializer(calculation_units, many=True)
+				serializers = CalculationUnitsSerializer(calculation_units)
 				return Response(serializers.data)
