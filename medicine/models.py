@@ -69,7 +69,6 @@ class Disease(models.Model):
 class Medicine(models.Model):
 		disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, blank=True)
 		name = models.CharField(max_length =30)
-		set_price  = models.IntegerField(null=True, blank=True)
 		description = models.TextField(max_length =300)
 		picture = CloudinaryField('image',null=True, blank=True)
 
@@ -97,6 +96,7 @@ class Medicine(models.Model):
 # Actions models
 class MediUnits(models.Model):
 		units  = models.IntegerField(null=True, blank=True)
+		set_price  = models.IntegerField(null=True, blank=True)
 		medicine  = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True, blank=True)
 
 		class Meta:
