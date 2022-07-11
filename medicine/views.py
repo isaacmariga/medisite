@@ -42,6 +42,10 @@ def donor(request, donor):
 	
 	return render(request, 'userdonations.html',{'donations':donations})
 
+def celebration(request):
+	
+	return render(request, 'form_pages/congratulations.html')
+
 # @login_required(login_url='/accounts/login/')
 def prescription(request, id):
 	medicine = Medicine.get_by_id(id)
