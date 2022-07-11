@@ -37,7 +37,7 @@ class DonatingSerializer(serializers.ModelSerializer):
 class PurchasingSerializer(serializers.ModelSerializer):
     class Meta:
       model = Purchasing
-      fields = ('units_sold', 'buyer', 'medicine')
+      fields = ('units_sold', 'buyer', 'medicine', 'phone_number','email', 'delivery_location')
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     class Meta:

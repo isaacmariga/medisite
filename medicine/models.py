@@ -169,6 +169,9 @@ class  Purchasing(models.Model):
 		units_sold  = models.IntegerField(null=True, blank=True)
 		buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 		medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+		phone_number  = models.IntegerField(null=True, blank=True)
+		email  = models.TextField(null=True, blank=True)
+		delivery_location  = models.TextField(null=True, blank=True)
 
 		def __str__(self):
 			return str(self.id)
