@@ -56,6 +56,8 @@ class Supplier(models.Model):
 
 class Disease(models.Model):
 		name = models.CharField(max_length =30,null=True, blank=True)
+		picture = CloudinaryField('image',null=True, blank=True)
+
 
 		def __str__(self):
 				return f"{self.name}-{str(self.id)}"
