@@ -172,6 +172,6 @@ class UnitsRemaining(APIView):
 
 class LatestPriceByMedicine(APIView):
 		def get(self,request,  id, format=None):
-				mediunit = MediUnits.filter_by_medicine(id).latest()
+				mediunit = MediUnits.filter_by_medicine(id).last()
 				serializers = MediUnitsSerializer(mediunit)
 				return Response(serializers.data)
