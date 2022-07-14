@@ -10,8 +10,13 @@ import jwt, datetime
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        print("test2")
+        serializer.is_valid()
+        print(serializer.data)
+        print("test3")
+
+        # serializer.save()
+
         return Response(serializer.data)
 
 
@@ -19,8 +24,10 @@ class LoginView(APIView):
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
+        print("test", email, password)
 
         user = User.objects.filter(email=email).first()
+        print("test", user)
 
         if user is None:
             raise AuthenticationFailed('User not found!')
