@@ -167,3 +167,11 @@ class UnitsRemaining(APIView):
 		def get(self, request, id):
 			units_calculated = CalculationUnits.units_calculated(id)
 			return Response({"units_calculated":units_calculated})
+
+
+
+class LatestPriceByMedicine(APIView):
+		def get(self,request,  id, format=None):
+				mediunit = MediUnits.filter_by_medicine(id).latest()
+				serializers = MediUnitsSerializer(mediunit)
+				return Response(serializers.data)
