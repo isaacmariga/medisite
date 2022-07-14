@@ -70,6 +70,12 @@ class Disease(models.Model):
 			table = Disease.objects.all()
 			return table
 
+		@classmethod
+		def get_medicine_number(cls):
+				num = list(Disease.objects.values('name').annotate(Count('medicine')))
+				# num = count
+				print(num)
+				return num
 		# @classmethod
 		# def get_last(cls):
 		# 	result = Disease.objects.all().order_by('-id')
@@ -334,7 +340,7 @@ class CalculationUnits(models.Model):
 			units = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units')).values())
 			test = all( i == None for i in units)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
 					units = int("".join(map(str,units)))
 
@@ -344,7 +350,7 @@ class CalculationUnits(models.Model):
 			units_sold = list(CalculationUnits.objects.filter(medicine_id=id).aggregate(Sum('units_sold')).values())
 			test = all( i == None for i in units_sold)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
 					units_sold = int("".join(map(str,units_sold)))
 
@@ -356,12 +362,16 @@ class CalculationUnits(models.Model):
 			donations = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).aggregate(Sum('donation_amount')).values())
 			test = all( i == None for i in donations)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
-					donations = int("".join(map(str,donations)))
-			result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
+					donations1 = int("".join(map(str,donations)))
+			# donations2  = (list(CalculationUnits.objects.filter(disease_id = 4).annotate(count=Count('units'))))
+			donations2  = list(Disease.objects.values('medicine__disease__name').annotate(Count('medicine')))
+			donations2 = donations2[2].get('medicine__count')
+			# don = CalculationUnits.objects.filter(disease_id__disease_name=)
 
-			donations = donations/result
+			# donations = donations1/donations2
+			donations = 300000
 
 # Second last calculations
 			Second_last = CalculationUnits.objects.filter(medicine_id=id).order_by('-id')
@@ -371,21 +381,21 @@ class CalculationUnits(models.Model):
 			sec_units = list(CalculationUnits.objects.filter(medicine_id=id).order_by('-id')[1:].aggregate(Sum('units')).values())
 			test = all( i == None for i in sec_units)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
 					sec_units = int("".join(map(str,sec_units)))
 
 			sec_units_sold = list(CalculationUnits.objects.filter(medicine_id=id).order_by('-id')[1:].aggregate(Sum('units_sold')).values())
 			test = all( i == None for i in sec_units_sold)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
 					sec_units_sold = int("".join(map(str,sec_units_sold)))
 
 			sec_donations = list(CalculationUnits.objects.filter(disease_id__medicine__id=id).order_by('-id')[1:].aggregate(Sum('donation_amount')).values())
 			test = all( i == None for i in sec_donations)
 			if (test) == True:
-					return 1
+					units = 1
 			else:
 					sec_donations = int("".join(map(str,sec_donations)))
 			result  = (list(CalculationUnits.objects.values('medicine_id__disease__name').annotate(count=Count('medicine_id__id')))[0]).get('count')
@@ -435,6 +445,9 @@ class CalculationUnits(models.Model):
 			print(f"total_spent_discount - {total_spent_discount}")
 			print(f"available_units- {available_units}")
 			print(f"total_original_price - {total_original_price}")
+			print(f"donations - {donations}")
+			print(f"donations1 - {donations1}")
+			print(f"donations2 - {donations2}")
 			print(f"total_donations - {total_donations}")
 			print(f"after_discount_price - {after_discount_price}")
 			print(f"price_per_unit - {price_per_unit}")

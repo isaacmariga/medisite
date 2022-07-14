@@ -19,8 +19,13 @@ def welcome(request):
 
 def home(request, disease):
 	medicines = Medicine.filter_by_disease(disease) 
-	
-	return render(request, 'home.html',{'medicines':medicines})
+
+	return render(request, 'home.html',{'medicines':medicines, })
+
+def play(request):
+	test = Disease.get_medicine_number()
+
+	return render(request, 'home2.html',{'test':test })
 
 def details(request, id):
 	# calc = CalculationUnits.unit_sum(id)
@@ -55,6 +60,7 @@ def prescription(request, id):
 			name = form.save(commit=False)
 			name.medicine = medicine
 			name.save()
+			send_mail('Welcome' , 'Good to have you on board', 'inmariga@gmail.com',['nimariga@gmail.com'], fail_silently=False)
 		return redirect( prescription,  medicine.id)
 	else:
 		form = PrescriptionForm()

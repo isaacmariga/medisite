@@ -6,6 +6,7 @@ from . import views, api_view, reg_api_view
 urlpatterns = [
   path('', views.welcome,name = 'test'),
   path('home/<disease>', views.home,name = 'home'),
+  path('play/', views.play,name = 'play'),
   path('details/<id>', views.details,name = 'details'),
   path('prescription/<id>', views.prescription,name = 'prescription'),
   path('donor/<donor>', views.donor,name = 'donor'),

@@ -195,10 +195,25 @@ CORS_ALLOW_CREDENTIALS = True
 connection = smtp.SMTP_SSL('smtp.gmail.com', 465)
 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'aizakmariga@gmail.com'
+# EMAIL_HOST_PASSWORD = 'sbqzkiywmbnjjmhe'
+
+# RECIPIENT_ADDRESS = 'inmariga@gmail.com'
+
+# SENDGRID_API_KEY = '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'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'# this is exactly the value ‘apikey’
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'inmariga@gmail.com'
+EMAIL_HOST_PASSWORD = '@Thisismyinmarigapassword2' #past the key or password app here
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'aizakmariga@gmail.com'
-EMAIL_HOST_PASSWORD = 'sbqzkiywmbnjjmhe'
-
-RECIPIENT_ADDRESS = 'inmariga@gmail.com'
+DEFAULT_FROM_EMAIL = 'default from email'
