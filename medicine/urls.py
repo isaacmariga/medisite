@@ -10,6 +10,7 @@ urlpatterns = [
   path('prescription/<id>', views.prescription,name = 'prescription'),
   path('donor/<donor>', views.donor,name = 'donor'),
   path('celebration', views.celebration,name = 'celebration'),
+  path('medicine_upload', views.medicine_upload,name = 'medicine_upload'),
 
   # path('api/profile/', api_view.ProfileList.as_view(), name = 'profile'),
   path('api/supplier/', api_view.SupplierList.as_view()),

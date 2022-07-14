@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 
 import medicine
 from .models import Disease, User, Supplier, Medicine, Donating, Purchasing, Prescription, CalculationUnits
-from .forms import PrescriptionForm
+from .forms import PrescriptionForm, MedicineForm
 
 
 # Create your views here.
@@ -55,15 +55,20 @@ def prescription(request, id):
 			name = form.save(commit=False)
 			name.medicine = medicine
 			name.save()
-		send_mail(
-			'Subject here',
-			'Here is the message.',
-			'aizakmariga@gmail.com',
-	 		['inmariga@gmail.com'],
-	 		fail_silently=False,)
-
 		return redirect( prescription,  medicine.id)
 	else:
 		form = PrescriptionForm()
-			
 	return render(request ,'form_pages/prescription.html', {'form': form , 'medicine': medicine})
+
+
+def medicine_upload(request):
+	if request.method == 'POST':
+		form = MedicineForm(request.POST, request.FILES)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.save()
+		return redirect( medicine_upload)
+	else:
+		form = MedicineForm()
+			
+	return render(request ,'form_pages/medicine_upload.html', {'form': form })

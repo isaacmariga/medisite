@@ -6,34 +6,44 @@
 
 
 <div class="container shell ">
-  <section class="text-body">
+  <section class="text-section">
+    <div class="text-body">
 
-    <h2>Kindly Upload your prescription</h2>
-    <h3>Process</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, eum ipsa! Odio ratione, voluptas impedit
-      voluptate temporibus adipisci doloremque sapiente iure similique. Quisquam provident eos eius et eligendi
-      est dolore iste assumenda. Dignissimos facere obcaecati deleniti corrupti commodi reiciendis maxime?</p>
-    <h3>Why do we ask for prescriptions</h3>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, eum ipsa! Odio ratione, voluptas impedit
-      voluptate temporibus adipisci doloremque sapiente iure similique. Quisquam provident eos eius et eligendi
-      est dolore iste assumenda. Dignissimos facere obcaecati deleniti corrupti commodi reiciendis maxime?</p>
+      <h2>Kindly Upload your prescription</h2>
+      <h3>Process</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, eum ipsa! Odio ratione, voluptas impedit
+        voluptate temporibus adipisci doloremque sapiente iure similique. Quisquam provident eos eius et eligendi
+        est dolore iste assumenda. Dignissimos facere obcaecati deleniti corrupti commodi reiciendis maxime?</p>
+      <h3>Why do we ask for prescriptions</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, eum ipsa! Odio ratione, voluptas impedit
+        voluptate temporibus adipisci doloremque sapiente iure similique. Quisquam provident eos eius et eligendi
+        est dolore iste assumenda. Dignissimos facere obcaecati deleniti corrupti commodi reiciendis maxime?</p>
+
+    </div>
+
+    <a style="color: rgb(47, 47, 47);" href=""></a> <button class="btn">Return To medicines</button></a>
+
   </section>
   <section class="get-in-touch">
     <h1 class="title">Thank you for Uploading your prescription</h1>
-    <form action="{%url 'prescription' medicine.id%}" method="post" class="contact-form row"
-      enctype="multipart/form-data">
+    <form action="{%url 'medicine_upload'%}" method="post" class="contact-form row" enctype="multipart/form-data">
       {%csrf_token%}
 
       {% bootstrap_form form%}
-      <input type="submit" class="btn" value="Post">
+      <input type="submit" class="btn" style="width: 100px;
+" value="Post">
     </form>
-    <button class="btn"><a href="">Return To medicines</a></button>
 
 
   </section>
 </div>
 
 <style>
+  .text-section {
+    display: grid;
+    place-content: center;
+  }
+
   .get-in-touch {
     max-width: 800px;
     margin: 50px auto;
@@ -132,12 +142,12 @@
   }
 
   .btn {
-    margin: 30px;
+    margin: 10px;
     padding: 12px 20px;
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #ffffff;
+    color: #1c1b1bd6;
     border-radius: 0;
     border: 2px solid #fdbe33;
     box-shadow: inset 0 0 0 0 #fdbe33;
